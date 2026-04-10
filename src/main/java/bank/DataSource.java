@@ -1,5 +1,6 @@
 package bank; // Definisce il package in cui si trova questa classe
 
+import java.beans.Statement;
 // Import delle classi necessarie per lavorare con il database SQL
 import java.sql.Connection;         // Rappresenta una connessione al database
 import java.sql.DriverManager;      // Serve per aprire una connessione al database
@@ -93,18 +94,39 @@ public class DataSource {
           return account;
   }
   // Metodo main: punto di ingresso del programma, altrimenti non si può avviare
-    public static void main(String[] args){ // String[] -> array di stringhe
-                                            // args -> nome variabile
-                                                // in questo caso args non viene utilizzato direttamente
-                                                // viene valorizzato quando lancio il comando dal terminale
-                                                // ex. java Main ciao mondo -> args[0] = "ciao" args[1]="mondo"
-                                                // devo comunque scriverlo nel pgm altrimenti java non riconosce il comando
-      
-      // Chiama il metodo getCustomer per cercare un utente
-      Customer customer = getCustomer("twest8o@friendfeed.com");
-      Account account = getAccount(customer.getAccountId());
-      // Stampa il nome del cliente trovato
-      System.out.println(account.getBalance());
+
+  public static void updateAccountBalance(int accountId, double balance){
+    String sql = "update accounts set balance = ? where id = ?";
+    try(
+      Connection connection = connect();
+      PreparedStatement statement = connection.prepareStatement(sql)
+    ){
+
+      statement.setDouble(1, balance);
+      statement.setInt(2, accountId);
+
+      statement.executeUpdate();
+
+    }catch(SQLException e){
+      e.printStackTrace();
+    }
   }
+  
+  
+
+//serve solo nei test
+  //public static void main(String[] args){ // String[] -> array di stringhe
+  //                                          // args -> nome variabile
+  //                                              // in questo caso args non viene utilizzato direttamente
+  //                                              // viene valorizzato quando lancio il comando dal terminale
+  //                                              // ex. java Main ciao mondo -> args[0] = "ciao" args[1]="mondo"
+  //                                              // devo comunque scriverlo nel pgm altrimenti java non riconosce il comando
+  //    
+  //    // Chiama il metodo getCustomer per cercare un utente
+  //    Customer customer = getCustomer("twest8o@friendfeed.com");
+  //    Account account = getAccount(customer.getAccountId());
+  //    // Stampa il nome del cliente trovato
+  //    System.out.println(account.getBalance());
+  //}
 
 }
