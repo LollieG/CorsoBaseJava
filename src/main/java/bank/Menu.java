@@ -80,7 +80,7 @@ public class Menu {
           break;
         
         case 3:
-          System.out.println("Current balance" + account.getBalance());
+          System.out.println("Current balance " + account.getBalance());
           break;
 
         case 4:
