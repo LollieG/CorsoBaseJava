@@ -22,6 +22,7 @@ public class Customer {
   private String username;
   private String password;
   private int accountId;
+  private boolean authenticated;
 
   // costruttore della classe, il nome deve essere lo stesso della
   // classe(=Customer)
@@ -34,6 +35,7 @@ public class Customer {
     setUsername(username);
     setPassword(password);
     setAccountId(accountId);
+    setAuthenticated(false);
   }
 
   // lettura dei dati
@@ -84,6 +86,14 @@ public class Customer {
 
   public void setAccountId(int accountId) {
     this.accountId = accountId;
+  }
+
+  public boolean isAuthenticated() {
+    return this.authenticated;
+  }
+
+  public void setAuthenticated(boolean authenticated) {
+    this.authenticated = authenticated;
   }
 
 }
